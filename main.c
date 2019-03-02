@@ -27,7 +27,7 @@ void FindLoc(void){
 			ChangeFreq(1661,(uint16_t)512);
 
 		}else if(y< 682){
-			ChangeFreq(880,(uint16_t)512);
+			ChangeFreq(880,(uint16_t)0);
 
 		}else if(y<=1023){
 			ChangeFreq(988,(uint16_t)512);
