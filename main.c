@@ -42,9 +42,7 @@ void FindLoc(void){
 }
 
 void ChangeFreq(int freq, uint16_t duty){
-	PWMCycles = SubsystemFrequency/freq;
-  	TA0CCR4 = (duty*PWMCycles)>>10;  // defines when output signal is cleared
-  	TA0CCR0 = PWMCycles - 1;         // defines when output signals are set
+	BSP_Buzzer_Set(freq, duty);
 
 }
 

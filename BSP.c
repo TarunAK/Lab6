@@ -587,11 +587,41 @@ void BSP_Buzzer_Init(uint16_t duty){
 // Input: duty is 10-bit duty cycle for the buzzer
 // Output: none
 // Assumes: BSP_Buzzer_Init() has been called
-void BSP_Buzzer_Set(uint16_t duty){
+void BSP_Buzzer_Set(int freq, uint16_t duty){
   if(duty > 1023){
     return;                        // invalid input
   }
+  // ***************** Timer A0 initialization *****************
+  // buzzer connected to J4.40 (PWM), which is P2.7/TA0.4 on MSP432 LaunchPad
+  TA0CTL &= ~0x0030;               // halt Timer A0
+  // bits15-10=XXXXXX, reserved
+  // bits9-8=10,       clock source to SMCLK
+  // bits7-6=00,       input clock divider /1
+  // bits5-4=00,       stop mode
+  // bit3=X,           reserved
+  // bit2=0,           set this bit to clear
+  // bit1=0,           interrupt disable
+  // bit0=0,           clear interrupt pending
+  TA0CTL = 0x0200;
+  // bits15-14=00,     no capture mode
+  // bits13-12=XX,     capture/compare input select
+  // bit11=X,          synchronize capture source
+  // bit10=X,          synchronized capture/compare input
+  // bit9=X,           reserved
+  // bit8=0,           compare mode
+  // bits7-5=111,      reset/set output mode
+  // bit4=0,           disable capture/compare interrupt
+  // bit3=X,           read capture/compare input from here
+  // bit2=X,           output this value in output mode 0
+  // bit1=X,           capture overflow status
+  // bit0=0,           clear capture/compare interrupt pending
+  TA0CCTL4 = 0x00E0;
+  PWMCycles = SubsystemFrequency/freq;
   TA0CCR4 = (duty*PWMCycles)>>10;  // defines when output signal is cleared
+  TA0CCR0 = PWMCycles - 1;         // defines when output signals are set
+  TA0EX0 &= ~0x0007;               // configure for input clock divider /1
+  TA0CTL |= 0x0014;                // reset and start Timer A0 in up mode
+  //TA0CCR4 = (duty*PWMCycles)>>10;  // defines when output signal is cleared
 }
 
 // ------------BSP_Accelerometer_Init------------
