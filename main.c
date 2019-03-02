@@ -15,32 +15,32 @@ void ChangeFreq(int freq, uint16_t duty){
 void FindLoc(void){
 	if(x<341){
 		if(y<341){
-			ChangeFreq(1480,(uint16_t)256);
+			ChangeFreq(1480,(uint16_t)512);
 		}else if(y< 682){
-			ChangeFreq(1175,(uint16_t)256);
+			ChangeFreq(1175,(uint16_t)512);
 		}else if(y<=1023){
-			ChangeFreq(880,(uint16_t)256);
+			ChangeFreq(880,(uint16_t)512);
 		}
 
 	}else if(x<682){
 		if(y<341){
-			ChangeFreq(1661,(uint16_t)256);
+			ChangeFreq(1661,(uint16_t)512);
 
 		}else if(y< 682){
 			ChangeFreq(880,(uint16_t)0);
 
 		}else if(y<=1023){
-			ChangeFreq(988,(uint16_t)256);
+			ChangeFreq(988,(uint16_t)512);
 		}
 
 	}else if(x <= 1023){
 		if(y<341){
-			ChangeFreq(1760,(uint16_t)256);
+			ChangeFreq(1760,(uint16_t)512);
 
 		}else if(y< 682){
-			ChangeFreq(1319,(uint16_t)256);
+			ChangeFreq(1319,(uint16_t)512);
 		}else if(y<=1023){
-			ChangeFreq(1109,(uint16_t)256);
+			ChangeFreq(1109,(uint16_t)512);
 			
 		}
 	}
