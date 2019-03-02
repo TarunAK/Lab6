@@ -298,7 +298,7 @@ void BSP_Buzzer_Init(uint16_t duty);
 // Input: duty is 10-bit duty cycle for the buzzer
 // Output: none
 // Assumes: BSP_Buzzer_Init() has been called
-void BSP_Buzzer_Set(uint16_t duty);
+void BSP_Buzzer_Set(int freq, uint16_t duty);
 
 // ------------BSP_Accelerometer_Init------------
 // Initialize three ADC pins, which correspond with
