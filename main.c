@@ -7,6 +7,11 @@ extern uint32_t SubsystemFrequency;
 uint16_t x, y = 0;
 uint8_t select = 0;
 
+void ChangeFreq(int freq, uint16_t duty){
+	BSP_Buzzer_Set(freq, duty);
+
+}
+
 void FindLoc(void){
 	if(x<341){
 		if(y<341){
@@ -41,16 +46,11 @@ void FindLoc(void){
 	}
 }
 
-void ChangeFreq(int freq, uint16_t duty){
-	BSP_Buzzer_Set(freq, duty);
-
-}
-
 int main(){
 	WDT_A->CTL = WDT_A_CTL_PW|WDT_A_CTL_HOLD;
 	BSP_Buzzer_Init((uint16_t) 0x00);
-	BSP_Joystick_Init(void);
-	BSP_Buzzer_Set((uint16_t)0);
+	BSP_Joystick_Init();
+	BSP_Buzzer_Set(2048, (uint16_t)0);
 	while(1){
 		BSP_Joystick_Input(&x, &y, &select);
 		FindLoc();
